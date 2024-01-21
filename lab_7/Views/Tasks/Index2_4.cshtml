@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Определить общую стоимость всех двухкомнатных объектов недвижимости, расположенных в указанном районе";
+}
+
+<h2>Определить общую стоимость всех двухкомнатных объектов недвижимости, расположенных в указанном районе</h2>
+
+<form method="get">
+    <div>
+        <label for="Number_of_rooms">Кол-во комнат:</label>
+        <input type="number" id="Number_of_rooms" name="Number_of_rooms" value="@ViewBag.Number_of_rooms" />
+    </div>
+    <div>
+        <label for="DistrictName">Название района:</label>
+        <input type="text" id="DistrictName" name="DistrictName" value="@ViewBag.DistrictName" />
+    </div>
+    <button type="submit">Поиск</button>
+</form>
+
+<p>Общая стоимость двухкомнатных объектов недвижимости: @ViewBag.TotalCost</p>

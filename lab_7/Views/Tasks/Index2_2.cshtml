@@ -1,0 +1,46 @@
+﻿@model IEnumerable<lab_7.Models.ModelForTask2_2>
+
+@{
+    ViewBag.Title = "Вывести фамилии риэлтор, которые продали двухкомнатные объекты недвижимости";
+}
+
+<h2>Вывести фамилии риэлтор, которые продали двухкомнатные объекты недвижимости</h2>
+
+<form method="get">
+    <div>
+        <label for="Number_of_rooms">Кол-во комнат:</label>
+        <input type="number" id="Number_of_rooms" name="Number_of_rooms" value="@ViewBag.Number_of_rooms" />
+    </div>
+    <button type="submit">Поиск</button>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            Фамилия
+        </th>
+        <th>
+            Имя
+        </th>
+        <th>
+            Отчество
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.LastName
+            </td>
+            <td>
+                @item.FirstName
+            </td>
+            <td>
+                @item.MiddleName
+            </td>
+        </tr>
+
+    }
+
+</table>

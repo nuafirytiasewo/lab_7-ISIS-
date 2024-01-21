@@ -1,0 +1,44 @@
+﻿@model IEnumerable<lab_7.Models.ModelForTask2_3>
+
+@{
+    ViewBag.Title = "Вывести разницу между заявленной и продажной стоимостью объектов недвижимости, расположенных на 2 этаже";
+}
+
+<h2>Вывести разницу между заявленной и продажной стоимостью объектов недвижимости, расположенных на 2 этаже</h2>
+
+<form method="get">
+    <div>
+        <label for="Floor">Этаж:</label>
+        <input type="number" id="Floor" name="Floor" value="@ViewBag.Floor" />
+    </div>
+    <button type="submit">Поиск</button>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            Адрес
+        </th>
+        <th>
+            Разница
+        </th>
+        <th>
+            ФИО риэлтора
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                @item.Area
+            </td>
+            <td>
+                @item.LastName @item.FirstName @item.MiddleName
+            </td>
+        </tr>
+    }
+</table>
