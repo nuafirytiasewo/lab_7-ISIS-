@@ -1,0 +1,51 @@
+﻿@model IEnumerable<lab_7.Models.Evaluations>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Evaluation_criteria.Criteria_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Real_estate_objects.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Evaluation_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Evaluation)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Evaluation_criteria.Criteria_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Real_estate_objects.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Evaluation_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Evaluation)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Evaluation_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Evaluation_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Evaluation_id })
+        </td>
+    </tr>
+}
+
+</table>

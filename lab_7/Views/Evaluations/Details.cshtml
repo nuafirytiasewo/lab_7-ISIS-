@@ -1,0 +1,50 @@
+﻿@model lab_7.Models.Evaluations
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Evaluations</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Evaluation_criteria.Criteria_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Evaluation_criteria.Criteria_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Real_estate_objects.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Real_estate_objects.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Evaluation_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Evaluation_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Evaluation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Evaluation)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Evaluation_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

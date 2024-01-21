@@ -1,0 +1,93 @@
+﻿@model IEnumerable<lab_7.Models.Real_estate_objects>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Building_materials.Material_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Districts.District_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Floor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Number_of_rooms)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Object_description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Area)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Announcement_date)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Building_materials.Material_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Districts.District_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Floor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number_of_rooms)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Object_description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Area)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Announcement_date)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Object_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Object_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Object_id })
+        </td>
+    </tr>
+}
+
+</table>
