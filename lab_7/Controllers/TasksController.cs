@@ -99,5 +99,19 @@ namespace lab_7.Controllers
 
             return View();
         }
+
+        //2.6
+        public ActionResult Index2_6(SearchModelForTask2_6 searchModel)
+        {
+            var averageEvaluation = (from r in db.Real_estate_objects
+                                     join d in db.Districts on r.District equals d.District_id
+                                     join e in db.Evaluations on r.Object_id equals e.Object_id
+                                     where d.District_name.Contains(searchModel.DistrictName)
+                                     select e.Evaluation).Average();
+
+            ViewBag.AverageEvaluation = averageEvaluation;
+
+            return View();
+        }
     }
 }
