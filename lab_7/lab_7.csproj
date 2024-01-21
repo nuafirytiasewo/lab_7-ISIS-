@@ -168,9 +168,12 @@
     <Compile Include="Controllers\EvaluationsController.cs" />
     <Compile Include="Controllers\Evaluation_criteriaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\ModelForTask2_1.cs" />
     <Compile Include="Controllers\RealtorsController.cs" />
     <Compile Include="Controllers\Real_estate_objectsController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
+    <Compile Include="Models\SearchModelForTask2_1.cs" />
+    <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -285,6 +288,7 @@
     <Content Include="Views\Sales\Details.cshtml" />
     <Content Include="Views\Sales\Edit.cshtml" />
     <Content Include="Views\Sales\Index.cshtml" />
+    <Content Include="Views\Tasks\Index2_1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

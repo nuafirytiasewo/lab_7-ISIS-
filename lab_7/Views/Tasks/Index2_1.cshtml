@@ -1,0 +1,52 @@
+﻿@model IEnumerable<lab_7.Models.ModelForTask2_1>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<form method="get">
+    <div>
+        <label for="DistrictName">Название района:</label>
+        <input type="text" id="DistrictName" name="DistrictName" value="@ViewBag.DistrictName" />
+    </div>
+    <div>
+        <label for="MinCost">Минимальная стоимость:</label>
+        <input type="number" id="MinCost" name="MinCost" value="@ViewBag.MinCost" />
+    </div>
+    <div>
+        <label for="MaxCost">Максимальная стоимость:</label>
+        <input type="number" id="MaxCost" name="MaxCost" value="@ViewBag.MaxCost" />
+    </div>
+    <button type="submit">Поиск</button>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            Адрес
+        </th>
+        <th>
+            Площадь
+        </th>
+        <th>
+            Этаж
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                @item.Area
+            </td>
+            <td>
+                @item.Floor
+            </td>
+        </tr>
+    }
+</table>
