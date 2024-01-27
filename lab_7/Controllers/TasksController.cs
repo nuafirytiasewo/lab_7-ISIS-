@@ -132,5 +132,23 @@ namespace lab_7.Controllers
 
             return View(floor2Counts);
         }
+
+        //2.8
+        public ActionResult Index2_8(string criteriaName, string realtorName)
+        {   //ищем по риелтору и критерию оценки, тип не был предусмотрен в задании
+            var averageEvaluation = (from r in db.Real_estate_objects
+                                     join e in db.Evaluations on r.Object_id equals e.Object_id
+                                     join c in db.Evaluation_criteria on e.Criteria_id equals c.Criteria_id
+                                     join s in db.Sale on r.Object_id equals s.Object_id
+                                     join re in db.Realtor on s.Realtor_id equals re.Realtor_id
+                                     where c.Criteria_name.Contains(criteriaName) && re.Last_name.Contains(realtorName)
+                                     select e.Evaluation).Average();
+
+            ViewBag.averageEvaluation = averageEvaluation; //6
+            ViewBag.criteriaName = criteriaName; //безопасность
+            ViewBag.realtorName = realtorName; //короткова
+
+            return View();
+        }
     }
 }
