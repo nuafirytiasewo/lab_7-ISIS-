@@ -168,12 +168,13 @@
     <Compile Include="Controllers\EvaluationsController.cs" />
     <Compile Include="Controllers\Evaluation_criteriaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\ModelForTask2_7.cs" />
+    <Compile Include="Models\SearchModelForTask2_7.cs" />
     <Compile Include="Models\SearchModelForTask2_6.cs" />
     <Compile Include="Models\ModelForTask2_2.cs" />
     <Compile Include="Models\ModelForTask2_3.cs" />
     <Compile Include="Models\SearchModelForTask2_2.cs" />
     <Compile Include="Models\SearchModelForTask2_3.cs" />
-    <Compile Include="Models\SearchModelForTask2_4.cs" />
     <Compile Include="Models\SearchModelForTask2_5.cs" />
     <Compile Include="Models\ModelForTask2_1.cs" />
     <Compile Include="Controllers\RealtorsController.cs" />
@@ -301,6 +302,7 @@
     <Content Include="Views\Tasks\Index2_4.cshtml" />
     <Content Include="Views\Tasks\Index2_5.cshtml" />
     <Content Include="Views\Tasks\Index2_6.cshtml" />
+    <Content Include="Views\Tasks\Index2_7.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

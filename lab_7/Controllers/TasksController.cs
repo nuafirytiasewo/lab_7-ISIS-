@@ -113,5 +113,24 @@ namespace lab_7.Controllers
 
             return View();
         }
+
+        //2.7
+        public ActionResult Index2_7(SearchModelForTask2_7 searchModel)
+        {
+            var floor2Counts = (from r in db.Real_estate_objects
+                                join d in db.Districts on r.District equals d.District_id
+                                where r.Floor == searchModel.Floor
+                                select new { District = d.District_name, r.Floor })
+                                .AsEnumerable() // Преобразуем результаты запроса в памяти, потому что District_name это text и нельзя группировать типы text, можно только varchar
+                                .GroupBy(r => r.District)
+                                .Select(g => new ModelForTask2_7
+                                {
+                                    District = g.Key,
+                                    Count = g.Count()
+                                })
+                                .ToList();
+
+            return View(floor2Counts);
+        }
     }
 }
