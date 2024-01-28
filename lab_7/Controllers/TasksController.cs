@@ -135,7 +135,8 @@ namespace lab_7.Controllers
 
         //2.8
         public ActionResult Index2_8(string criteriaName, string realtorName)
-        {   //ищем по риелтору и критерию оценки, тип не был предусмотрен в задании
+        {   
+            //ищем по риэлтору и критерию оценки, тип не был предусмотрен в задании
             var averageEvaluation = (from r in db.Real_estate_objects
                                      join e in db.Evaluations on r.Object_id equals e.Object_id
                                      join c in db.Evaluation_criteria on e.Criteria_id equals c.Criteria_id
@@ -154,6 +155,7 @@ namespace lab_7.Controllers
         //2.9
         public ActionResult Index2_9(DateTime? startDate = null, DateTime? endDate = null)
         {
+            //ищем по дате от и до, тип не был предусмотрен в задании
             var averagePricePerSquareMeter = (from s in db.Sale
                                               join r in db.Real_estate_objects on s.Object_id equals r.Object_id
                                               where s.Sale_date >= startDate && s.Sale_date <= endDate
@@ -164,6 +166,26 @@ namespace lab_7.Controllers
             ViewBag.endDate = endDate; //22.01.22
 
             return View();
+        }
+
+        //2.10
+        public ActionResult Index2_10()
+        {
+            var realtorBonuses = (from s in db.Sale
+                                  join r in db.Realtor on s.Realtor_id equals r.Realtor_id
+                                  select new { Sale = s, Realtor = r })
+                     .AsEnumerable()
+                     .GroupBy(sr => new { sr.Realtor.Last_name, sr.Realtor.First_name, sr.Realtor.Middle_name })
+                     .Select(g => new ModelForTask2_10
+                     {
+                         LastName = g.Key.Last_name,
+                         FirstName = g.Key.First_name,
+                         MiddleName = g.Key.Middle_name,
+                         Bonus = g.Count() > 0 ? (g.Sum(x => x.Sale.Cost) * 0.05m * 0.87m).ToString() : "Риэлтор еще ничего не продал"
+                     });
+
+            return View(realtorBonuses.ToList());
+
         }
     }
 }
