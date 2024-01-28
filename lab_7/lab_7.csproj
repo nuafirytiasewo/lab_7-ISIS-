@@ -304,6 +304,7 @@
     <Content Include="Views\Tasks\Index2_6.cshtml" />
     <Content Include="Views\Tasks\Index2_7.cshtml" />
     <Content Include="Views\Tasks\Index2_8.cshtml" />
+    <Content Include="Views\Tasks\Index2_9.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

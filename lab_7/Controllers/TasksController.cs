@@ -150,5 +150,20 @@ namespace lab_7.Controllers
 
             return View();
         }
+
+        //2.9
+        public ActionResult Index2_9(DateTime? startDate = null, DateTime? endDate = null)
+        {
+            var averagePricePerSquareMeter = (from s in db.Sale
+                                              join r in db.Real_estate_objects on s.Object_id equals r.Object_id
+                                              where s.Sale_date >= startDate && s.Sale_date <= endDate
+                                              select r.Cost / r.Area).Average();
+
+            ViewBag.averagePricePerSquareMeter = averagePricePerSquareMeter; //166666,66666666666666666666
+            ViewBag.startDate = startDate; //4.01.22
+            ViewBag.endDate = endDate; //22.01.22
+
+            return View();
+        }
     }
 }
