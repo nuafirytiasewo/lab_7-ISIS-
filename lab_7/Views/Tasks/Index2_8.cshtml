@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Определить среднюю оценку апартаментов по заданному критерию, проданных указанным риэлтором";
+}
+
+<h2>Определить среднюю оценку апартаментов по заданному критерию, проданных указанным риэлтором</h2>
+
+<form method="get">
+    <div>
+        <label for="criteriaName">Критерий оценки:</label>
+        <input type="text" id="criteriaName" name="criteriaName" value="@ViewBag.criteriaName" />
+    </div>
+    <div>
+        <label for="realtorName">Риэлтор:</label>
+        <input type="text" id="realtorName" name="realtorName" value="@ViewBag.realtorName" />
+    </div>
+    <button type="submit">Поиск</button>
+</form>
+
+<p>Средняя оценка апартаментов по заданному критерию: @ViewBag.averageEvaluation</p>

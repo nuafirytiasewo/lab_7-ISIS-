@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Определить среднюю оценку объектов недвижимости, расположенных в указанном районе";
+}
+
+<h2>Определить среднюю оценку объектов недвижимости, расположенных в указанном районе</h2>
+
+<form method="get">    
+    <div>
+        <label for="DistrictName">Название района:</label>
+        <input type="text" id="DistrictName" name="DistrictName" value="@ViewBag.DistrictName" />
+    </div>
+    <button type="submit">Поиск</button>
+</form>
+
+<p>Средняя оценка объектов недвижимости: @ViewBag.AverageEvaluation</p>

@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Определить среднюю продажную стоимость 1м2 для квартир, которые были проданы в указанную дату «ОТ» и «ДО»";
+}
+
+<h2>
+    Определить среднюю продажную стоимость 1м2 для квартир, которые были
+    проданы в указанную дату «ОТ» и «ДО»
+</h2>
+
+<form method="get">
+    <div>
+        <label for="startDate">От:</label>
+        <input type="date" id="startDate" name="startDate" value="@ViewBag.startDate?.ToString("dd-MM-yyyy")" />
+    </div>
+    <div>
+        <label for="endDate">До:</label>
+        <input type="date" id="endDate" name="endDate" value="@ViewBag.endDate?.ToString("dd-MM-yyyy")" />
+    </div>
+    <button type="submit">Поиск</button>
+</form>
+
+<p>Средняя продажная стоимость квартиры: @ViewBag.averagePricePerSquareMeter</p>
