@@ -206,5 +206,31 @@ namespace lab_7.Controllers
 
             return View(data.ToList());
         }
+
+        //2.12
+        public ActionResult Index2_12(SearchModelForTask2_12 searchModel)
+        {
+            var dataFromDB = (from o in db.Real_estate_objects
+                              join m in db.Building_materials on o.Building_material equals m.Material_id
+                              where o.Floor == searchModel.Floor
+                              select new { Material = m.Material_name, Cost = o.Cost })
+                             .AsEnumerable()
+                             .GroupBy(x => x.Material)
+                             .Select(grp => new
+                             {
+                                 Material = grp.Key,
+                                 AverageCost = grp.Average(x => x.Cost)
+                             });
+
+            var data = dataFromDB.Select(x => new ModelForTask2_12
+            {
+                BuildingMaterial = x.Material,
+                AverageCost = x.AverageCost
+            }).ToList();
+
+            return View(data);
+        }
+
+
     }
 }
