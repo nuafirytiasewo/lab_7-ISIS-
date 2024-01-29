@@ -187,5 +187,24 @@ namespace lab_7.Controllers
             return View(realtorBonuses.ToList());
 
         }
+
+        //2.11
+        public ActionResult Index2_11()
+        {
+            var data = (from s in db.Sale
+                        join r in db.Realtor on s.Realtor_id equals r.Realtor_id
+                        select new { Sale = s, Realtor = r })
+                     .AsEnumerable()
+                     .GroupBy(sr => new { sr.Realtor.Last_name, sr.Realtor.First_name, sr.Realtor.Middle_name })
+                     .Select(g => new ModelForTask2_11
+                     {
+                         LastName = g.Key.Last_name,
+                         FirstName = g.Key.First_name,
+                         MiddleName = g.Key.Middle_name,
+                         Count = g.Count()
+                     });
+
+            return View(data.ToList());
+        }
     }
 }
