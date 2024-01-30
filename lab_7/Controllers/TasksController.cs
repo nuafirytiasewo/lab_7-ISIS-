@@ -259,5 +259,19 @@ namespace lab_7.Controllers
             return View(processedData);
         }
 
+        //2.14
+        public ActionResult Index2_14(string districtName)
+        {
+            var unsoldApartments = from re in db.Real_estate_objects
+                                    where re.Status != 1 // статус 1 означает "продано"
+                                    join d in db.Districts on re.District equals d.District_id
+                                    where d.District_name.Contains(districtName)
+                                    select new ModelForTask2_14
+                                    { Address = re.Address };
+            ViewBag.districtName = districtName;
+            return View(unsoldApartments.ToList());
+        }
+
+
     }
 }
