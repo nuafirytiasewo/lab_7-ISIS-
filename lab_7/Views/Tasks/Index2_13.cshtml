@@ -1,0 +1,45 @@
+﻿@model IEnumerable<lab_7.Models.ModelForTask2_13>
+
+@{
+    ViewBag.Title = "Вывести информацию о трех самых дорогих объектах недвижимости, \r\nрасположенных в каждом районе";
+}
+
+<h2>
+    Вывести информацию о трех самых дорогих объектах недвижимости,
+    расположенных в каждом районе
+</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Название района
+        </th>
+        <th>
+            Адрес
+        </th>
+        <th>
+            Стоимость
+        </th>
+        <th>
+            Этаж
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.DistrictName
+            </td>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                @item.Cost
+            </td>
+            <td>
+                @item.Floor
+            </td>
+        </tr>
+    }
+</table>

@@ -231,6 +231,33 @@ namespace lab_7.Controllers
             return View(data);
         }
 
+        //2.13
+        public ActionResult Index2_13()
+        {
+            var rawData = (from re in db.Real_estate_objects
+                           join d in db.Districts on re.District equals d.District_id
+                           select new { DistrictName = d.District_name, Address = re.Address, Cost = re.Cost, Floor = re.Floor })
+                           .AsEnumerable();
+
+            // Производим сортировку и группировку в коде C#
+            var processedData = rawData
+                .GroupBy(x => x.DistrictName)
+                .Select(g => new
+                {
+                    DistrictName = g.Key,
+                    TopThreeProperties = g.OrderByDescending(p => p.Cost).ThenBy(p => p.Floor).Take(3)
+                })
+                .SelectMany(x => x.TopThreeProperties.Select(y => new ModelForTask2_13
+                {
+                    DistrictName = x.DistrictName,
+                    Address = y.Address,
+                    Cost = y.Cost,
+                    Floor = y.Floor
+                }))
+                .ToList();
+
+            return View(processedData);
+        }
 
     }
 }
