@@ -187,5 +187,144 @@ namespace lab_7.Controllers
             return View(realtorBonuses.ToList());
 
         }
+
+        //2.11
+        public ActionResult Index2_11()
+        {
+            var data = (from s in db.Sale
+                        join r in db.Realtor on s.Realtor_id equals r.Realtor_id
+                        select new { Sale = s, Realtor = r })
+                     .AsEnumerable()
+                     .GroupBy(sr => new { sr.Realtor.Last_name, sr.Realtor.First_name, sr.Realtor.Middle_name })
+                     .Select(g => new ModelForTask2_11
+                     {
+                         LastName = g.Key.Last_name,
+                         FirstName = g.Key.First_name,
+                         MiddleName = g.Key.Middle_name,
+                         Count = g.Count()
+                     });
+
+            return View(data.ToList());
+        }
+
+        //2.12
+        public ActionResult Index2_12(SearchModelForTask2_12 searchModel)
+        {
+            var dataFromDB = (from o in db.Real_estate_objects
+                              join m in db.Building_materials on o.Building_material equals m.Material_id
+                              where o.Floor == searchModel.Floor
+                              select new { Material = m.Material_name, Cost = o.Cost })
+                             .AsEnumerable()
+                             .GroupBy(x => x.Material)
+                             .Select(grp => new
+                             {
+                                 Material = grp.Key,
+                                 AverageCost = grp.Average(x => x.Cost)
+                             });
+
+            var data = dataFromDB.Select(x => new ModelForTask2_12
+            {
+                BuildingMaterial = x.Material,
+                AverageCost = x.AverageCost
+            }).ToList();
+
+            return View(data);
+        }
+
+        //2.13
+        public ActionResult Index2_13()
+        {
+            var rawData = (from re in db.Real_estate_objects
+                           join d in db.Districts on re.District equals d.District_id
+                           select new { DistrictName = d.District_name, Address = re.Address, Cost = re.Cost, Floor = re.Floor })
+                           .AsEnumerable();
+
+            // Производим сортировку и группировку в коде C#
+            var processedData = rawData
+                .GroupBy(x => x.DistrictName)
+                .Select(g => new
+                {
+                    DistrictName = g.Key,
+                    TopThreeProperties = g.OrderByDescending(p => p.Cost).ThenBy(p => p.Floor).Take(3)
+                })
+                .SelectMany(x => x.TopThreeProperties.Select(y => new ModelForTask2_13
+                {
+                    DistrictName = x.DistrictName,
+                    Address = y.Address,
+                    Cost = y.Cost,
+                    Floor = y.Floor
+                }))
+                .ToList();
+
+            return View(processedData);
+        }
+
+        //2.14
+        public ActionResult Index2_14(string districtName)
+        {
+            var unsoldApartments = from re in db.Real_estate_objects
+                                    where re.Status != 1 // статус 1 означает "продано"
+                                    join d in db.Districts on re.District equals d.District_id
+                                    where d.District_name.Contains(districtName)
+                                    select new ModelForTask2_14
+                                    { Address = re.Address };
+            ViewBag.districtName = districtName;
+            return View(unsoldApartments.ToList());
+        }
+
+        //2.15
+        public ActionResult Index2_15(string districtName)
+        {
+            var propertiesInfo = (from re in db.Real_estate_objects
+                                  join d in db.Districts on re.District equals d.District_id
+                                  join s in db.Sale on re.Object_id equals s.Object_id
+                                  join r in db.Realtor on s.Realtor_id equals r.Realtor_id
+                                  where d.District_name.Contains(districtName) &&
+                                        (s.Cost / re.Cost) >= 0.8m && (s.Cost / re.Cost) <= 1.2m
+                                  select new ModelForTask2_15
+                                  { 
+                                      Address = re.Address, 
+                                      DistrictName = d.District_name, 
+                                      Realtor = r.Last_name, 
+                                      Cost = re.Cost, 
+                                      SaleCost = s.Cost 
+                                  }).ToList();
+            ViewBag.districtName = districtName;
+            return View(propertiesInfo);
+        }
+
+        //2.16
+        public ActionResult Index2_16(string realtorLastName)
+        {
+            var propertiesInfo = (from re in db.Real_estate_objects
+                                  join d in db.Districts on re.District equals d.District_id
+                                  join s in db.Sale on re.Object_id equals s.Object_id
+                                  join r in db.Realtor on s.Realtor_id equals r.Realtor_id
+                                  where r.Last_name.Contains(realtorLastName) && ((s.Cost - re.Cost) > 100000 || (re.Cost - s.Cost) > 100000)
+                                  select new ModelForTask2_16 
+                                  { 
+                                      Address = re.Address, 
+                                      DistrictName = d.District_name 
+                                  }).ToList();
+            ViewBag.realtorLastName = realtorLastName;
+            return View(propertiesInfo);
+        }
+
+        //2.17
+        public ActionResult Index2_17(string realtorLastName, int year = 2022)
+        {
+            var propertiesInfo = (from re in db.Real_estate_objects
+                                  join s in db.Sale on re.Object_id equals s.Object_id
+                                  join r in db.Realtor on s.Realtor_id equals r.Realtor_id
+                                  where r.Last_name.Contains(realtorLastName) && s.Sale_date.Value.Year == year
+                                  select new ModelForTask2_17 
+                                  { 
+                                      Address = re.Address, 
+                                      PriceDifference = (decimal)(((s.Cost - re.Cost) / re.Cost) * 100)
+                                  }).ToList();
+
+            return View(propertiesInfo);
+        }
+
     }
 }

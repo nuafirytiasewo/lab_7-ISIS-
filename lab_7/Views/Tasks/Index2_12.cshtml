@@ -1,0 +1,41 @@
+﻿@model IEnumerable<lab_7.Models.ModelForTask2_12>
+
+@{
+    ViewBag.Title = "Вывести информацию о средней стоимости объектов недвижимости, \r\nрасположенных на определенном этаже по каждому материалу здания";
+}
+
+<h2>
+    Вывести информацию о средней стоимости объектов недвижимости,
+    расположенных на определенном этаже по каждому материалу здания
+</h2>
+
+<form method="get">
+    <div>
+        <label for="Floor">Этаж:</label>
+        <input type="number" id="Floor" name="Floor" value="@ViewBag.Floor" />
+    </div>
+    <button type="submit">Поиск</button>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            Материал здания
+        </th>
+        <th>
+            Средней стоимости объектов недвижимости
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.BuildingMaterial
+            </td>
+            <td>
+                @item.AverageCost
+            </td>
+        </tr>
+    }
+</table>

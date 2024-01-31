@@ -1,0 +1,44 @@
+﻿@model IEnumerable<lab_7.Models.ModelForTask2_17>
+@{
+    ViewBag.Title = "Вывести разницу в % между заявленной и продажной стоимостью для \r\nобъектов недвижимости, проданных указанным риэлтором в текущем году.";
+}
+
+<h2>
+    Вывести разницу в % между заявленной и продажной стоимостью для 
+    объектов недвижимости, проданных указанным риэлтором в текущем году.
+</h2>
+
+<form method="get">
+    <div>
+        <label for="year">Год:</label>
+        <input type="number" id="year" name="year" value="@ViewBag.year" />
+    </div>
+    <div>
+        <label for="realtorLastName">Фамилия риэлтора:</label>
+        <input type="text" id="realtorLastName" name="realtorLastName" value="@ViewBag.realtorLastName" />
+    </div>
+    <button type="submit">Поиск</button>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            Адрес
+        </th>
+        <th>
+            Разница в %
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                @item.PriceDifference
+            </td>
+        </tr>
+    }
+</table>
