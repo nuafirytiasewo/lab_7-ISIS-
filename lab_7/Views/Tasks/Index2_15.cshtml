@@ -1,0 +1,59 @@
+﻿@model IEnumerable<lab_7.Models.ModelForTask2_15>
+@{
+    ViewBag.Title = "Вывести информацию об объектах недвижимости, у которых разница \r\nмежду заявленной и продажной стоимостью составляет не более 20 % и \r\nрасположенных в указанном районе";
+}
+
+<h2>
+    Вывести информацию об объектах недвижимости, у которых разница 
+    между заявленной и продажной стоимостью составляет не более 20 % и 
+    расположенных в указанном районе
+</h2>
+
+<form method="get">
+    <div>
+        <label for="DistrictName">Название района:</label>
+        <input type="text" id="DistrictName" name="DistrictName" value="@ViewBag.DistrictName" />
+    </div>
+    <button type="submit">Поиск</button>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            Адрес
+        </th>
+        <th>
+            Район
+        </th>
+        <th>
+            Фамилия риэлтора
+        </th>
+        <th>
+            Заявленная стоимость
+        </th>
+        <th>
+            Продажная стоимость
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                @item.DistrictName
+            </td>
+            <td>
+                @item.Realtor
+            </td>
+            <td>
+                @item.Cost
+            </td>
+            <td>
+                @item.SaleCost
+            </td>
+        </tr>
+    }
+</table>

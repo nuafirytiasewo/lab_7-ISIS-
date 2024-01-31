@@ -272,6 +272,59 @@ namespace lab_7.Controllers
             return View(unsoldApartments.ToList());
         }
 
+        //2.15
+        public ActionResult Index2_15(string districtName)
+        {
+            var propertiesInfo = (from re in db.Real_estate_objects
+                                  join d in db.Districts on re.District equals d.District_id
+                                  join s in db.Sale on re.Object_id equals s.Object_id
+                                  join r in db.Realtor on s.Realtor_id equals r.Realtor_id
+                                  where d.District_name.Contains(districtName) &&
+                                        (s.Cost / re.Cost) >= 0.8m && (s.Cost / re.Cost) <= 1.2m
+                                  select new ModelForTask2_15
+                                  { 
+                                      Address = re.Address, 
+                                      DistrictName = d.District_name, 
+                                      Realtor = r.Last_name, 
+                                      Cost = re.Cost, 
+                                      SaleCost = s.Cost 
+                                  }).ToList();
+            ViewBag.districtName = districtName;
+            return View(propertiesInfo);
+        }
+
+        //2.16
+        public ActionResult Index2_16(string realtorLastName)
+        {
+            var propertiesInfo = (from re in db.Real_estate_objects
+                                  join d in db.Districts on re.District equals d.District_id
+                                  join s in db.Sale on re.Object_id equals s.Object_id
+                                  join r in db.Realtor on s.Realtor_id equals r.Realtor_id
+                                  where r.Last_name.Contains(realtorLastName) && ((s.Cost - re.Cost) > 100000 || (re.Cost - s.Cost) > 100000)
+                                  select new ModelForTask2_16 
+                                  { 
+                                      Address = re.Address, 
+                                      DistrictName = d.District_name 
+                                  }).ToList();
+            ViewBag.realtorLastName = realtorLastName;
+            return View(propertiesInfo);
+        }
+
+        //2.17
+        public ActionResult Index2_17(string realtorLastName, int year = 2022)
+        {
+            var propertiesInfo = (from re in db.Real_estate_objects
+                                  join s in db.Sale on re.Object_id equals s.Object_id
+                                  join r in db.Realtor on s.Realtor_id equals r.Realtor_id
+                                  where r.Last_name.Contains(realtorLastName) && s.Sale_date.Value.Year == year
+                                  select new ModelForTask2_17 
+                                  { 
+                                      Address = re.Address, 
+                                      PriceDifference = (decimal)(((s.Cost - re.Cost) / re.Cost) * 100)
+                                  }).ToList();
+
+            return View(propertiesInfo);
+        }
 
     }
 }
