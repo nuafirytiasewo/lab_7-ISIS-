@@ -326,5 +326,74 @@ namespace lab_7.Controllers
             return View(propertiesInfo);
         }
 
+        //2.18
+        public ActionResult Index2_18()
+        {
+            var data = (from re in db.Real_estate_objects
+                        join d in db.Districts on re.District equals d.District_id
+                        let avgPricePerSquare = db.Real_estate_objects.Where(o => o.District == re.District).Average(o => o.Cost / o.Area)
+                        where re.Cost / re.Area < avgPricePerSquare
+                        let CostPerSquare = (decimal)(re.Cost / re.Area)
+                        select new ModelForTask2_18
+                        { 
+                            Address = re.Address, 
+                            CostPerSquare = Math.Round(CostPerSquare, 2)
+                        }).ToList();
+
+            return View(data);
+        }
+
+
+
+        //2.19
+        public ActionResult Index2_19(int year = 2022)
+        {
+            var data = (from r in db.Realtor
+                        where !db.Sale.Any(s => s.Realtor_id == r.Realtor_id && s.Sale_date.Value.Year == year)
+                        select new ModelForTask2_19
+                        { LastName = r.Last_name, FirstName = r.First_name, MiddleName = r.Middle_name }).ToList();
+
+            return View(data);
+        }
+
+
+        public ActionResult Index2_20()
+        {
+            DateTime currentDate = new DateTime(2022, 1, 1);
+
+            DateTime fourMonthsAgo = currentDate.AddMonths(-4);
+
+            var filteredRealEstate = db.Real_estate_objects
+                .Where(re => re.Announcement_date >= fourMonthsAgo)
+                .Select(re => new
+                {
+                    Address = re.Address,
+                    Status = re.Status,
+                    PricePerSquare = (decimal)re.Cost / (decimal)re.Area
+                })
+                .ToList();
+
+            var groupedData = filteredRealEstate
+                .GroupBy(re => new { re.Address, re.Status })
+                .Select(g => new
+                {
+                    Address = g.Key.Address,
+                    Status = g.Key.Status,
+                    AvgPricePerSquare = g.Average(x => x.PricePerSquare)
+                })
+                .ToList();
+
+            var formattedData = groupedData.Select(g =>
+                new ModelForTask2_20
+                {
+                    Address = g.Address,
+                    Status = g.Status == 1 ? "продано" : "в продаже",
+                    CostPerSquare = g.AvgPricePerSquare
+                }
+            ).ToList();
+
+            return View(formattedData);
+        }
+
     }
 }
