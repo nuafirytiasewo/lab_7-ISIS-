@@ -359,40 +359,26 @@ namespace lab_7.Controllers
 
         public ActionResult Index2_20()
         {
-            DateTime currentDate = new DateTime(2022, 1, 1);
-
+            DateTime currentDate = new DateTime(2022, 8, 2);
             DateTime fourMonthsAgo = currentDate.AddMonths(-4);
 
-            var filteredRealEstate = db.Real_estate_objects
-                .Where(re => re.Announcement_date >= fourMonthsAgo)
-                .Select(re => new
-                {
-                    Address = re.Address,
-                    Status = re.Status,
-                    PricePerSquare = (decimal)re.Cost / (decimal)re.Area
-                })
-                .ToList();
+            var data = (from re in db.Real_estate_objects
+                        join d in db.Districts on re.District equals d.District_id
+                        join s in db.Sale on re.Object_id equals s.Object_id
+                        let avgPricePerSquare = db.Real_estate_objects
+                                                 .Where(o => o.District == re.District)
+                                                 .Average(o => o.Cost / o.Area)
+                        where re.Cost / re.Area < avgPricePerSquare
+                              && re.Announcement_date >= fourMonthsAgo
+                              && re.Announcement_date <= currentDate
+                        select new ModelForTask2_20
+                        {
+                            Address = re.Address,
+                            Status = (s != null && s.Sale_date <= currentDate) ? "продано" : "в продаже"
+                        }).ToList();
 
-            var groupedData = filteredRealEstate
-                .GroupBy(re => new { re.Address, re.Status })
-                .Select(g => new
-                {
-                    Address = g.Key.Address,
-                    Status = g.Key.Status,
-                    AvgPricePerSquare = g.Average(x => x.PricePerSquare)
-                })
-                .ToList();
+            return View(data);
 
-            var formattedData = groupedData.Select(g =>
-                new ModelForTask2_20
-                {
-                    Address = g.Address,
-                    Status = g.Status == 1 ? "продано" : "в продаже",
-                    CostPerSquare = g.AvgPricePerSquare
-                }
-            ).ToList();
-
-            return View(formattedData);
         }
 
     }
