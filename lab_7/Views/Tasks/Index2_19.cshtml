@@ -1,0 +1,33 @@
+﻿@model IEnumerable<lab_7.Models.ModelForTask2_19>
+@{
+    ViewBag.Title = "Определить ФИО риэлторов, которые ничего не продали в текущем году";
+}
+
+<h2>
+    Определить ФИО риэлторов, которые ничего не продали в текущем году
+</h2>
+
+<form method="get">
+    <div>
+        <label for="year">Год:</label>
+        <input type="number" id="year" name="year" value="@ViewBag.year" />
+    </div>
+    <button type="submit">Поиск</button>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            ФИО риэлтора
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.LastName @item.FirstName @item.MiddleName
+            </td>
+        </tr>
+    }
+</table>

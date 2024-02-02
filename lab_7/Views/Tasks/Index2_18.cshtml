@@ -1,0 +1,33 @@
+﻿@model IEnumerable<lab_7.Models.ModelForTask2_18>
+@{
+    ViewBag.Title = "Определить адреса квартир, стоимость 1м2\r\nкоторых меньше средней по \r\nрайону.\r";
+}
+
+<h2>
+    Определить адреса квартир, стоимость 1м2
+    которых меньше средней по 
+    району.
+</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Адрес
+        </th>
+        <th>
+            Стоимость 1м2
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                @item.CostPerSquare
+            </td>
+        </tr>
+    }
+</table>
