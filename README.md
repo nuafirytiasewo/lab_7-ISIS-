@@ -1,4 +1,4 @@
-# lab_7
+# Лабораторная работа 7 по дисциплине "Инструментальные средства информационных систем".
 Установил Visual Studio 2022 
 ![image](https://github.com/nuafirytiasewo/lab_7-ISIS-/assets/103138302/4565b4de-4e1b-424b-b15b-30465d9976a3)
 
