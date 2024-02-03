@@ -38,7 +38,7 @@
 Создал таблицы в БД lab_7
  ![image](https://github.com/nuafirytiasewo/lab_7-ISIS-/assets/103138302/81e4674c-abf3-498f-af9d-e99f54e6db79)
 
-Добавил связи, внешние ключи к таблицам (Дампы будут предоставлены)
+Добавил связи, внешние ключи к таблицам (Дампы предоставлены - файл dump.bacpac)
  ![image](https://github.com/nuafirytiasewo/lab_7-ISIS-/assets/103138302/ac3ef4d4-b9f0-4f38-901d-e9384c1eea07)
 ![image](https://github.com/nuafirytiasewo/lab_7-ISIS-/assets/103138302/5c7d4c4d-edb1-404a-a2f7-cd56bfb145ec)
 ![image](https://github.com/nuafirytiasewo/lab_7-ISIS-/assets/103138302/2225c6d8-9e56-4e60-b7b8-4b6bd293926c)
